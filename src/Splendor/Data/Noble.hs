@@ -8,6 +8,7 @@ module Splendor.Data.Noble (
 ) where
 
 import Control.Lens
+import Data.Array
 
 import Splendor.Data.Gem
 
