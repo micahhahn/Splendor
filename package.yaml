@@ -49,3 +49,5 @@ tests:
     - -with-rtsopts=-N
     dependencies:
     - Splendor
+    - tasty
+    - tasty-hunit

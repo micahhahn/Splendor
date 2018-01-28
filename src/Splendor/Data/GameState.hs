@@ -6,12 +6,15 @@ module Splendor.Data.GameState (
     nobles,
     remainingCards,
     remainingNobles,
-    remainingTokens,
+    remainingGems,
+    remainingWilds,
     playerStates
 ) where
 
 import Control.Lens
+import Data.Array
 
+import Splendor.Data.Gem
 import qualified Splendor.Data.Card as C
 import qualified Splendor.Data.Noble as N
 import qualified Splendor.Data.Token as T
@@ -21,7 +24,8 @@ data GameState = GameState { _cards :: [C.Card]
                            , _nobles :: [N.Noble]
                            , _remainingCards :: [C.Card]
                            , _remainingNobles :: [N.Noble]
-                           , _remainingTokens :: [(T.Token, Int)]
+                           , _remainingGems :: Array Gem Int
+                           , _remainingWilds :: Int
                            , _playerStates :: [P.PlayerState]
                            } deriving (Show, Eq)
 

@@ -4,19 +4,23 @@ module Splendor.Data.PlayerState (
     PlayerState(..),
     cards,
     reservedCards,
-    tokens,
+    gems,
+    wilds,
     nobles
 ) where
 
 import Control.Lens
+import Data.Array
 
 import Splendor.Data.Card
 import Splendor.Data.Token
+import Splendor.Data.Gem
 import qualified Splendor.Data.Noble as N
 
 data PlayerState = PlayerState { _cards :: [Card] 
                                , _reservedCards :: [Card]
-                               , _tokens :: [Token]
+                               , _gems :: Array Gem Int
+                               , _wilds :: Int
                                , _nobles :: [N.Noble]
                                } deriving (Show, Eq)
 
