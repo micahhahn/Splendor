@@ -13,8 +13,12 @@ import Splendor.Data.Action
 
 validateAction :: G.GameState -> Int -> Action -> Either String ()
 validateAction g _ (Take gs ts)
-    | length gs > 3 = Left "You can take at most three gems."
-    | otherwise      = Right ()
+    | length gs > 3                          = Left "You can take at most three gems."
+    | (length . filter (> 0) . elems) gs > 1 = if any (> 1) gs then Left "You may only take one of each color." else Right ()
+    | otherwise                              = case sum gs of
+                                                 1 -> Right ()
+                                                 2 -> if (g ^. G.remainingGems) ! (fst . head . filter (\x -> snd x > 0) . assocs) gs >= 4 then Right () else Left "You can only take 2 of a kind if there are at least 4 gems available."
+                                                 3 -> Left "You can take at most 1 of a color"
 validateAction g i (Reserve c mg)
     | length (((g ^. G.playerStates) !! i) ^. P.reservedCards) > 2  = Left "You can have at most three reserved cards."
     | not (elem c (g ^. G.cards))                                   = Left "You must reserve a card currently on the board."
